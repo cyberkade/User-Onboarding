@@ -53,7 +53,7 @@ const Form = () => {
           Yup
           .reach(formSchema, name)
           .validate(value)
-          .then(valid => {
+          .then(() => {
               setErrors({
                   ...errors, [name]: ''
               })
@@ -74,7 +74,6 @@ const Form = () => {
          const newUser = {username: formData.username, email: formData.email, password: formData.password, agreedTOS: formData.agreedTOS}
          axios.post('https://reqres.in/api/users', newUser)
          .then(res => {
-             console.log(res.data);
              setUsers([...users, res.data]);
          })
          .catch(err => {
@@ -90,6 +89,7 @@ const Form = () => {
 
     return (
         <>
+        <h1>Join The Club!</h1>
         <form onSubmit={submit}>
             <label>
                 Username
@@ -112,7 +112,8 @@ const Form = () => {
             </label>
             <button disabled={buttonDisabled} >Submit!</button>
         </form>
-        <div>
+        {users.length > 0 && <h2 className='userHeader'>Check Out The Club!</h2>}
+        <div className='userCont'>
             {users.map( (user, index) => <User key={index} user={user} /> )}
         </div>
         </>
