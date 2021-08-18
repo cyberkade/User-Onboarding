@@ -1,8 +1,9 @@
 import axios from 'axios';
 import * as Yup from 'yup';
 import {useState, useEffect} from 'react';
+import User from './User'
 
-const Form = (props) => {
+const Form = () => {
     const [formData, setFormData] = useState({
         username: '',
         email:'',
@@ -62,6 +63,7 @@ const Form = (props) => {
                   ...errors, [name]: err.errors[0]
               })
           })
+
           setFormData({
               ...formData, [name]: valueToUse
           })
@@ -72,20 +74,22 @@ const Form = (props) => {
          const newUser = {username: formData.username, email: formData.email, password: formData.password, agreedTOS: formData.agreedTOS}
          axios.post('https://reqres.in/api/users', newUser)
          .then(res => {
-             console.log(res);
-             setFormData(...{
-                username: '',
-                email:'',
-                password:'',
-                agreedTOS: false,
-            });
+             console.log(res.data);
+             setUsers([...users, res.data]);
          })
          .catch(err => {
-             debugger
+             console.log(err)
          })
+         setFormData({
+            username: '',
+            email:'',
+            password:'',
+            agreedTOS: false,
+        });
      }
 
     return (
+        <>
         <form onSubmit={submit}>
             <label>
                 Username
@@ -108,6 +112,10 @@ const Form = (props) => {
             </label>
             <button disabled={buttonDisabled} >Submit!</button>
         </form>
+        <div>
+            {users.map( (user, index) => <User key={index} user={user} /> )}
+        </div>
+        </>
     )
 }
 
