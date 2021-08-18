@@ -8,6 +8,7 @@ const Form = () => {
         username: '',
         email:'',
         password:'',
+        genre:'',
         agreedTOS: false,
     });
     const [buttonDisabled, setButtonDisabled] = useState(true);
@@ -15,6 +16,7 @@ const Form = () => {
         username: '',
         email: '',
         password: '',
+        genre:'',
         agreedTOS: '',
     });
     const [users, setUsers] = useState([]);
@@ -24,7 +26,7 @@ const Form = () => {
             .string()
             .trim()
             .required("Must include a username.")
-            .min(6, "Username must be at least 6 characters long."),
+            .min(3, "Username must be at least 3 characters long."),
         email: Yup
           .string()
           .trim()
@@ -34,7 +36,10 @@ const Form = () => {
           .string()
           .trim()
           .required("Password is Required")
-          .min(8, "Passwords must be at least 8 characters long."),
+          .min(6, "Passwords must be at least 6 characters long."),
+        genre: Yup
+        .string()
+        .oneOf(['Indie Rock', 'Classic Rock', 'Death Metal','Hip-Hop/R&B', 'EDM/Dubstep/House', 'Pop', 'Country', 'Jazz', 'Disco'],"Preferred Music Genre is Required"),
         agreedTOS: Yup
           .boolean()
           .oneOf([true], "You must accept Terms and Conditions")
@@ -71,7 +76,7 @@ const Form = () => {
 
      const submit = (e) => {
          e.preventDefault();
-         const newUser = {username: formData.username, email: formData.email, password: formData.password, agreedTOS: formData.agreedTOS}
+         const newUser = {username: formData.username, email: formData.email, password: formData.password, genre: formData.genre, agreedTOS: formData.agreedTOS}
          axios.post('https://reqres.in/api/users', newUser)
          .then(res => {
              setUsers([...users, res.data]);
@@ -106,6 +111,20 @@ const Form = () => {
                 <input onChange={inputChange} id='password' type='password' name='password' value={formData.password} placeholder='Enter a Secure Password'></input>
             </label>
             {errors.password.length > 0 && <p className="errorMsg">{errors.password}</p>}
+            <label>
+                Preferred Music Genre
+                <select onChange={inputChange} value={formData.genre} name='genre'>
+                    <option>Indie Rock</option>
+                    <option>Classic Rock</option>
+                    <option>Death Metal</option>
+                    <option>Hip-Hop/R&B</option>
+                    <option>EDM/Dubstep/House</option>
+                    <option>Pop</option>
+                    <option>Country</option>
+                    <option>Jazz</option>
+                    <option>Disco</option>
+                </select>
+            </label>
             <label>
                 Terms and Conditions
                 <input onChange={inputChange} id='tos' type='checkbox' name='agreedTOS' checked={formData.agreedTOS} ></input>
