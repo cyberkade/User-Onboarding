@@ -114,6 +114,7 @@ const Form = () => {
             <label>
                 Preferred Music Genre
                 <select onChange={inputChange} value={formData.genre} name='genre'>
+                    <option>--select a genre--</option>
                     <option>Indie Rock</option>
                     <option>Classic Rock</option>
                     <option>Death Metal</option>
