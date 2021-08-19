@@ -10,19 +10,19 @@ describe('The Form Page', () => {
 })
 
 describe('Fill Out Form', () => {
-    it("Fills out the entire form", () => {
+    it("Fill out and check form for correct values", () => {
 
-        cy.get('#username').type('Heimerdinger')
-        cy.get('#email').type('HeimsWeims@gmail.com')
-        cy.get('#password').type('SchmoopySnachs')
-        cy.get('#genre').select('Indie Rock')
-        cy.get('#tos').check()
-        cy.get('#submit').click()
+        cy.get('input[name=username]').type('Heimerdinger').should('have.value', 'Heimerdinger')
+        cy.get('input[name=email]').type('HeimsWeims@gmail.com').should('have.value', 'HeimsWeims@gmail.com')
+        cy.get('input[name=password]').type('SchmoopySnachs').should('have.value', 'SchmoopySnachs')
+        cy.get('select[name=genre]').select('Indie Rock').should('have.value', 'Indie Rock')
+        cy.get('input[name=agreedTOS]').check()
     })
 })
 
-describe('Look for new user card', () => {
+describe('Submit Form', () => {
     it('Looks for a new user card with the correct info', () => {
+        cy.get('#submit').click()
         cy.get('.user h2').contains('Heimerdinger')
         cy.get('.user h3').first().contains('Loves Indie Rock')
         cy.get('.user h3').eq(1).contains('HeimsWeims@gmail.com')
