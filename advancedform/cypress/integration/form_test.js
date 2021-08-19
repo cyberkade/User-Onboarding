@@ -12,11 +12,11 @@ describe('The Form Page', () => {
 describe('Fill Out Form', () => {
     it("Fill out and check form for correct values", () => {
 
-        cy.get('input[name=username]').type('Heimerdinger').should('have.value', 'Heimerdinger')
-        cy.get('input[name=email]').type('HeimsWeims@gmail.com').should('have.value', 'HeimsWeims@gmail.com')
-        cy.get('input[name=password]').type('SchmoopySnachs').should('have.value', 'SchmoopySnachs')
-        cy.get('select[name=genre]').select('Indie Rock').should('have.value', 'Indie Rock')
-        cy.get('input[name=agreedTOS]').check()
+        cy.get('input[name=username]').should('have.value', '').type('Heimerdinger').should('have.value', 'Heimerdinger')
+        cy.get('input[name=email]').should('have.value', '').type('HeimsWeims@gmail.com').should('have.value', 'HeimsWeims@gmail.com')
+        cy.get('input[name=password]').should('have.value', '').type('SchmoopySnachs').should('have.value', 'SchmoopySnachs')
+        cy.get('select[name=genre]').should('have.value', '--select a genre--').select('Indie Rock').should('have.value', 'Indie Rock')
+        cy.get('input[name=agreedTOS]').should('be.visible').and('not.be.checked').check()
     })
 })
 
