@@ -17,6 +17,7 @@ describe('Fill Out Form', () => {
         cy.get('input[name=password]').should('have.value', '').type('SchmoopySnachs').should('have.value', 'SchmoopySnachs')
         cy.get('select[name=genre]').should('have.value', '--select a genre--').select('Indie Rock').should('have.value', 'Indie Rock')
         cy.get('input[name=agreedTOS]').should('be.visible').and('not.be.checked').check()
+        cy.get('#submit').should('not.be.disabled')
     })
 })
 
