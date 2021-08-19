@@ -95,7 +95,7 @@ const Form = () => {
     return (
         <>
         <h1>Join The Club!</h1>
-        <form onSubmit={submit}>
+        <form id='newUserForm' onSubmit={submit}>
             <label>
                 Username
                 <input onChange={inputChange} id='username' type='text' name='username' value={formData.username} placeholder='Enter a Username'></input>
@@ -113,7 +113,7 @@ const Form = () => {
             {errors.password.length > 0 && <p className="errorMsg">{errors.password}</p>}
             <label>
                 Preferred Music Genre
-                <select onChange={inputChange} value={formData.genre} name='genre'>
+                <select id="genre" onChange={inputChange} value={formData.genre} name='genre'>
                     <option>--select a genre--</option>
                     <option>Indie Rock</option>
                     <option>Classic Rock</option>
@@ -130,7 +130,7 @@ const Form = () => {
                 Terms and Conditions
                 <input onChange={inputChange} id='tos' type='checkbox' name='agreedTOS' checked={formData.agreedTOS} ></input>
             </label>
-            <button disabled={buttonDisabled} >Submit!</button>
+            <button disabled={buttonDisabled} id='submit'>Submit!</button>
         </form>
         {users.length > 0 && <h2 className='userHeader'>Check Out The Club!</h2>}
         <div className='userCont'>
